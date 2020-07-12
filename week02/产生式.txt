@@ -1,0 +1,9 @@
+<MutiplicativeExpression>::=<Number>|
+	<MultiplicativeExpression>"*"<Number>|
+	<MultiplicativeExpression>"/"<Number>|
+	(<MultiplicativeExpression>)|
+
+<AdditiveExpression>::=<MultiplicativeExpression>|
+	<AdditiveExpression>"+"</AdditiveExpression>|
+	<AdditiveExpression>"-"<MultiplicativeExpression>|
+	(<AdditiveExpression>)|
