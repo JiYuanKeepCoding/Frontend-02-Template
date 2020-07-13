@@ -11,17 +11,11 @@ function utf8Encoding(str) {
             //第一个字节后四位 与上 utf8约定的表示字节数量的前四位
             firstByte = (codePoint >> j) | (0xFF >> (8 - byteCount) << (8 - byteCount));
             bytes.push(firstByte);
-            //塞进了bytes之后前几位就不需要了，清除掉
-            codePoint = codePoint & maxNbitNumber(j);
             //每6位生成一个字节，塞到bytes里面
             for (let k = 1; k < byteCount; k ++) {
                 let afterByte;
-                if (codePoint < minNbitNumber(6)) {
-                    afterByte = (codePoint >> (j - 6 * k)) | minNbitNumber(8);
-                } else {
-                    afterByte = (codePoint >> (j - 6 * k)) | minNbitNumber(8);
-                    codePoint = codePoint & maxNbitNumber(j - 6 * k);
-                }
+                //取前6位前面再拼上10
+                afterByte = (codePoint >> (j - 6 * k)) & 0x3F | minNbitNumber(8);
                 bytes.push(afterByte);
             }
         }
