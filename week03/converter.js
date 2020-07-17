@@ -1,5 +1,14 @@
 function stringToNumber(str) {
     const notation = getNotation(str)
+    if (str.includes('.') && notation === 10) {
+        strs = str.split('.');
+        if (strs.length > 2) {
+            throw 'invalid str'
+        }
+        const intPart = stringToNumber(strs[0]);
+        const decimalPart = stringToNumber(strs[1]) / Math.pow(10, (strs[1]).length);
+        return intPart + decimalPart;
+    }
     const numArray = str2NumArray(str, notation);
     let numResult = 0;
     numArray.forEach((num, i) => {
@@ -10,6 +19,8 @@ function stringToNumber(str) {
 }
 
 function numberToString(num, notation) {
+    let decimalPart = num - Math.floor(num);
+    num = Math.floor(num)
     let numStr = '';
     //短除法拼字符串
     while (num > 0) {
@@ -17,7 +28,14 @@ function numberToString(num, notation) {
         num = Math.floor(num/notation);
         numStr = m + numStr;
     }
-    return numStr;
+    if (decimalPart == 0) {
+        return numStr;
+    } else {
+        while (!Number.isInteger(decimalPart)) {
+            decimalPart = decimalPart * 10;
+        }
+        return numStr + '.' + numberToString(decimalPart, notation);
+    }
 }
 
 function str2NumArray(str, notation) {
@@ -46,6 +64,7 @@ function getNotation(str) {
     return notation? notation : 10;
 }
 
+console.log(stringToNumber('3.14'));
 console.log(stringToNumber('0x130'));
 console.log(stringToNumber('0b100'));
 console.log(stringToNumber('0o130'));
@@ -54,3 +73,4 @@ console.log(numberToString(304, 16));
 console.log(numberToString(4, 2));
 console.log(numberToString(88, 8));
 console.log(numberToString(130, 10));
+console.log(numberToString(3.14, 10));
