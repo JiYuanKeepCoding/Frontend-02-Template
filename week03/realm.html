@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Realm</title>
+    <style>
+        .g6-component-tooltip {
+            pointer-events: none;
+        }
+    </style>
+  </head>
+  <body>
+
+    <div id="mountNode"></div>
+
+
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g6-3.5.10/dist/g6.min.js"></script>
+
+    <script>
+      // 定义数据源
+      const data = {
+        id: 'root',
+        label: 'Realm',
+        collapsed: true,
+        children: [
+            {
+                id: 'Value properties',
+                label: 'Value properties',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'Infinity',
+                        label: 'Infinity'
+                    },
+                    {
+                        id: 'NaN',
+                        label: 'NaN'
+                    },
+                    {
+                        id: 'undefined',
+                        label: 'undefined'
+                    },
+                    {
+                        id: 'globalThis',
+                        label: 'globalThis'
+                    }
+                ]
+            },
+            {
+                id: 'Function properties',
+                label: 'Function properties',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'eval()',
+                        label: 'eval()'
+                    },
+                    {
+                        id: 'uneval()',
+                        label: 'uneval()'
+                    },
+                    {
+                        id: 'isFinite()',
+                        label: 'isFinite()'
+                    },
+                    {
+                        id: 'isNaN()',
+                        label: 'globalThis'
+                    },
+                    {
+                        id: 'parseFloat()',
+                        label: 'eval()'
+                    },
+                    {
+                        id: 'parseInt()',
+                        label: 'parseInt()'
+                    },
+                    {
+                        id: 'encodeURI()',
+                        label: 'encodeURI()'
+                    },
+                    {
+                        id: 'encodeURIComponent()',
+                        label: 'encodeURIComponent()'
+                    },
+                    {
+                        id: 'decodeURI()',
+                        label: 'decodeURI()'
+                    },
+                    {
+                        id: 'decodeURIComponent()',
+                        label: 'decodeURIComponent()'
+                    }
+                ]
+            },
+            {
+                id: 'Fundamental objects',
+                label: 'Fundamental objects',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'Object',
+                        label: 'Object'
+                    },
+                    {
+                        id: 'Function',
+                        label: 'Function'
+                    },
+                    {
+                        id: 'Boolean',
+                        label: 'Boolean'
+                    },
+                    {
+                        id: 'Symbol',
+                        label: 'Symbol'
+                    },
+                ]
+            },
+            {
+                id: 'Error objects',
+                label: 'Error objects',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'Error',
+                        label: 'Error'
+                    },
+                    {
+                        id: 'AggregateError ',
+                        label: 'AggregateError '
+                    },
+                    {
+                        id: 'EvalError',
+                        label: 'EvalError'
+                    },
+                    {
+                        id: 'InternalError ',
+                        label: 'InternalError '
+                    },
+                    {
+                        id: 'RangeError',
+                        label: 'RangeError'
+                    },
+                    {
+                        id: 'ReferenceError',
+                        label: 'ReferenceError'
+                    },
+                    {
+                        id: 'SyntaxError',
+                        label: 'SyntaxError'
+                    },
+                    {
+                        id: 'TypeError',
+                        label: 'TypeError'
+                    },
+                    {
+                        id: 'URIError',
+                        label: 'URIError'
+                    }
+                ]
+            },
+            {
+                id: 'Numbers and dates',
+                label: 'Numbers and dates',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'Number',
+                        label: 'Number'
+                    },
+                    {
+                        id: 'BigInt',
+                        label: 'BigInt'
+                    },
+                    {
+                        id: 'Math',
+                        label: 'Math'
+                    },
+                    {
+                        id: 'Date',
+                        label: 'Date'
+                    }
+                ]
+            },
+            {
+                id: 'Text processing',
+                label: 'Text processing',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'String',
+                        label: 'String'
+                    },
+                    {
+                        id: 'RegExp',
+                        label: 'RegExp'
+                    }
+                ]
+            },
+            {
+                id: 'Indexed collections',
+                label: 'Indexed collections',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'Array',
+                        label: 'Array'
+                    },
+                    {
+                        id: 'Int8Array',
+                        label: 'Int8Array'
+                    },
+                    {
+                        id: 'Uint8Array',
+                        label: 'Uint8Array'
+                    },
+                    {
+                        id: 'Uint8ClampedArray',
+                        label: 'Uint8ClampedArray'
+                    },
+                    {
+                        id: 'Int16Array',
+                        label: 'Int16Array'
+                    },
+                    {
+                        id: 'Uint16Array',
+                        label: 'Uint16Array'
+                    },
+                    {
+                        id: 'Int32Array',
+                        label: 'Int32Array'
+                    },
+                    {
+                        id: 'Uint32Array',
+                        label: 'Uint32Array'
+                    },
+                    {
+                        id: 'Float32Array',
+                        label: 'Float32Array'
+                    },
+                    {
+                        id: 'Float64Array',
+                        label: 'Float64Array'
+                    },
+                    {
+                        id: 'BigInt64Array',
+                        label: 'BigInt64Array'
+                    },
+                    {
+                        id: 'BigUint64Array',
+                        label: 'BigUint64Array'
+                    }
+                ]
+            },
+            {
+                id: 'Keyed collections',
+                label: 'Keyed collections',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'Map',
+                        label: 'Map'
+                    },
+                    {
+                        id: 'Set',
+                        label: 'Set'
+                    },
+                    {
+                        id: 'WeakMap',
+                        label: 'WeakMap'
+                    },
+                    {
+                        id: 'WeakSet',
+                        label: 'WeakSet'
+                    }
+                ]
+            },
+            {
+                id: 'Structured data',
+                label: 'Structured data',
+                collapsed: true,
+                children: [
+                   {
+                        id: 'ArrayBuffer',
+                        label: 'ArrayBuffer'
+                    },
+                    {
+                        id: 'SharedArrayBuffer ',
+                        label: 'SharedArrayBuffer '
+                    },
+                    {
+                        id: 'Atomics ',
+                        label: 'Atomics '
+                    },
+                    {
+                        id: 'DataView',
+                        label: 'DataView'
+                    },
+                    {
+                        id: 'JSON',
+                        label: 'JSON'
+                    }
+                ]
+            },
+            {
+                id: 'Control abstraction objects',
+                label: 'Control abstraction objects',
+                collapsed: true,
+                children: [       
+                    {
+                        id: 'Promise',
+                        label: 'Promise'
+                    },
+                    {
+                        id: 'Generator',
+                        label: 'Generator'
+                    },
+                    {
+                        id: 'GeneratorFunction',
+                        label: 'GeneratorFunction'
+                    },
+                    {
+                        id: 'AsyncFunction',
+                        label: 'AsyncFunction'
+                    }
+                ]
+            },
+            {
+                id: 'Reflection',
+                label: 'Reflection',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'Reflect',
+                        label: 'Reflect'
+                    },
+                    {
+                        id: 'Proxy',
+                        label: 'Proxy'
+                    }
+                ]
+            },
+            {
+                id: 'Internationalization',
+                label: 'Internationalization',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'Intl',
+                        label: 'Intl'
+                    },
+                    {
+                        id: 'Intl.Collator',
+                        label: 'Intl.Collator'
+                    },
+                    {
+                        id: 'Intl.DateTimeFormat',
+                        label: 'Intl.DateTimeFormat'
+                    },
+                    {
+                        id: 'Intl.ListFormat',
+                        label: 'Intl.ListFormat'
+                    },
+                    {
+                        id: 'Intl.NumberFormat',
+                        label: 'Intl.NumberFormat'
+                    },
+                    {
+                        id: 'Intl.PluralRules',
+                        label: 'Intl.PluralRules'
+                    },
+                    {
+                        id: 'Intl.RelativeTimeFormat',
+                        label: 'Intl.RelativeTimeFormat'
+                    },
+                    {
+                        id: 'Intl.Locale',
+                        label: 'Intl.Locale'
+                    }
+                ]
+            },
+            {
+                id: 'WebAssembly',
+                label: 'WebAssembly',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'WebAssembly',
+                        label: 'WebAssembly'
+                    },
+                    {
+                        id: 'WebAssembly.Module',
+                        label: 'WebAssembly.Module'
+                    },
+                    {
+                        id: 'WebAssembly.Instance',
+                        label: 'WebAssembly.Instance'
+                    },
+                    {
+                        id: 'WebAssembly.Memory',
+                        label: 'WebAssembly.Memory'
+                    },
+                    {
+                        id: 'WebAssembly.Table',
+                        label: 'WebAssembly.Table'
+                    },
+                    {
+                        id: 'WebAssembly.CompileError',
+                        label: 'WebAssembly.CompileError'
+                    },
+                    {
+                        id: 'WebAssembly.LinkError',
+                        label: 'WebAssembly.LinkError'
+                    },
+                    {
+                        id: 'WebAssembly.RuntimeError',
+                        label: 'WebAssembly.RuntimeError'
+                    }
+                ]
+            },
+            {
+                id: 'Other',
+                label: 'Other',
+                collapsed: true,
+                children: [
+                    {
+                        id: 'arguments',
+                        label: 'arguments'
+                    }
+                ]
+            },
+        ]
+    };
+
+    const tooltip = new G6.Tooltip({
+        offset: 10,
+        getContent(e) {
+            console.log(e);
+            return `<div style='pointer-events:none'>
+                <p>具体用法。。。</p>
+            </div>`;
+        },
+    });
+
+    const graph = new G6.TreeGraph({
+        container: 'mountNode',
+        width: 1500,
+        height: 1000,
+        fitView:true,
+        fitCenter:true,
+        modes: {
+            default: [
+            {
+                type: 'collapse-expand',
+                onChange(item, collapsed) {
+                    const icon = item.get('group').findByClassName('collapse-icon');
+                    if (collapsed) {
+                        icon.attr('symbol', EXPAND_ICON);
+                    } else {
+                        icon.attr('symbol', COLLAPSE_ICON);
+                    }
+                },
+            },
+            'zoom-canvas',
+            'drag-canvas',
+            ],
+        },
+        layout: {
+            type: 'compactBox',
+            direction: 'LR'
+        },
+        defaultEdge: {
+            type: 'cubic-horizontal',
+            style: {
+                endArrow: true,
+                lineWidth: 3,
+            },
+            curveOffset: 10
+        },
+        defaultNode: {
+            labelCfg: {
+                position: 'right'
+            }
+        },
+        plugins: [tooltip]
+    });
+      
+      // 读取数据
+      graph.data(data);
+      // 渲染图
+      graph.render();
+    </script>
+  </body>
+</html>
