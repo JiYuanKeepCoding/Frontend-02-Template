@@ -1,0 +1,12 @@
+{
+  "name": "toy-browser",
+  "version": "0.0.1",
+  "description": "hello",
+  "main": "client/client.js",
+  "author": "jiyuan",
+  "license": "ISC",
+  "dependencies": {
+    "css": "^2.2.4",
+    "images": "^3.2.3"
+  }
+}
