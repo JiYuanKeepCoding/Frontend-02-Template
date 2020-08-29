@@ -1,0 +1,116 @@
+<html>
+    <style>
+        .row {
+            display: flex;
+            
+        }
+        .point {
+            background-color:#80808099;
+            border: 1px solid white;
+            height: 6px;
+            width: 6px;
+        }
+    </style>
+    <body>
+        <div id="map"></div>
+        <button id="start">start</button>
+    </body>
+    <script>
+        const mapSize = 100;
+        let isDrawing = false;
+        const target = [50, 50]
+        const queue = new SortedQueue();
+        const table = new Array(100*100).fill(0);
+        const prevMap = {};
+        initMap();
+        document.getElementById("start").addEventListener("click", function() {
+            while (queue.hasNext()) {
+                let pos = queue.take();
+                for (let dir of [[1,0], [0,1],[-1,0],[0,-1]]) {
+                    let x = parseInt(pos[0]) + dir[0];
+                    let y = parseInt(pos[1]) + dir[1];
+                    if (x === target[0] && y === target[1]) {
+                        console.log("done");
+                        let prev = pos;
+                        while (prev) {
+                            document.getElementById("map").children[prev[0]].children[prev[1]].style.setProperty('background-color', 'red');
+                            prev = queue.getPrev(prev);
+                        }
+                        return;
+                    }
+                    queue.enqueue(x, y, pos);
+                };
+            }
+        })
+        
+        function SortedQueue() {
+            this.queue = [[0, 0]];
+            this.enqueue = (i, j, prev) => {
+                if (i < 0 || j < 0 || i >= mapSize || j >= mapSize ||
+                    table[i * mapSize + j] === 1 || table[i * mapSize + j] === 2) {
+                        return; //排除有墙或者出界的情况
+                }
+
+                function getDistance(i, j) {
+                    return Math.abs(target[0] - i) + Math.abs(target[1] - j);
+                }
+
+                const queueLength = this.queue.length;
+                let insertIndex = 0;
+                for (let k = queueLength - 1; k >= 0; k --) {
+                    if (getDistance(i, j) < getDistance(this.queue[k][0], this.queue[k][1])) {
+                        insertIndex = k;
+                        break;
+                    }
+                }
+                this.queue.splice(insertIndex, 0, [i, j]);
+                table[i * mapSize + j] = 2;
+                prevMap[i * mapSize + j] = prev;
+                document.getElementById("map").children[i].children[j].style.setProperty('background-color', 'green');
+            };
+
+            this.getPrev = (pos) => {
+                if (pos[0] === 0 && pos[1] === 0) {
+                    return null;
+                }
+                return prevMap[pos[0]*mapSize + pos[1]];
+            }
+
+            this.take = () => {
+                return this.queue.pop();
+            }
+
+            this.hasNext = () => {
+                return this.queue.length;
+            }
+        }
+
+
+        function initMap() {
+            for (let i = 0; i < mapSize; i++) {
+                const rowElement = document.createElement("div");
+                rowElement.setAttribute("class", "row");
+                document.getElementById("map").appendChild(rowElement);
+                for (let j = 0; j < mapSize; j ++) {
+                    const point = document.createElement("div");
+                    point.setAttribute("class", "point");
+                    point.addEventListener('mousedown', e => {
+                        isDrawing = true;
+                    });
+
+                    document.getElementById("map").addEventListener('mouseup', e => {
+                        isDrawing = false;
+                    });
+
+                    point.addEventListener('mousemove', e => {
+                        if (isDrawing === true) {
+                            point.style.setProperty('background-color', 'grey');
+                            table[i*mapSize + j] = 1;
+                        }
+                    });
+                    rowElement.appendChild(point);
+                }
+            }
+        }
+    </script>
+</html>
